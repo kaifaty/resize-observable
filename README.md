@@ -9,7 +9,7 @@ Lit example: `<resize-observalbe .levels = "${[600, 1200]}" @resize = "${onResiz
 
 ## Install
 
-```npm i resize-observalbe```
+```npm i resize-observable```
 
 ## Properties/Attributes
 
