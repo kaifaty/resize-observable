@@ -3,6 +3,8 @@
 Zero dependence resize observable web component.
 Based on ResizeOberver.
 
+## [Demo](https://kaifaty.github.io/resize-reservable/)
+
 Lit example: `<resize-observalbe .levels = "${[600, 1200]}" @resize = "${onResizeFunction}}></resize-observalbe>`
 
 ## Install
