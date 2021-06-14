@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Resize observable container</title>
+        <style>
+            body, html{
+                height: 100%;
+                padding: 0;
+                margin: 0;
+            }
+            .test-container{
+                width: 100%;
+                background-color: black;
+                text-align: center;
+                height: 100%;
+            }
+            .before-600{
+                color: blue;
+            }
+            .before-480{
+                color: rgb(0, 224, 0);
+            }
+            .after-600{
+                color: white;
+            }
+            .after-768{
+                color: tomato;
+            }
+            .after-1200{
+                color: rgb(255, 0, 200);
+            }
+        </style>
+    </head>
+    <body>
+        <div class = "test-container">
+            <resize-observable>
+                <h1>Test-container 1</h1>                
+            </resize-observable>
+        </div>
+    </body>
+    <script type="module" src = "/dist/index.js"></script>
+    
+</html>

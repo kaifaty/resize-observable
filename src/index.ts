@@ -1,6 +1,4 @@
-
-
-export class ResizeNotifier extends HTMLElement{
+export class ResizeObservable extends HTMLElement{
     _resizeObserver: ResizeObserver | null = null;
     _width: number = 0;
     _levels: number[] = [480, 600, 768, 1024, 1200, 1600, 1900];
@@ -49,14 +47,16 @@ export class ResizeNotifier extends HTMLElement{
     }
     private _setWidth(value: number){   
         if(value === this._width) return;
-        this._width = value;
-        this._updateGridSize();
-        this.dispatchEvent(new CustomEvent("resize", {
-            detail: {
-                width: value,
-                sizes: this.className
-            }
-        }))
+        requestAnimationFrame(() => {
+            this._width = value;
+            this._updateGridSize();
+            this.dispatchEvent(new CustomEvent("resize", {
+                detail: {
+                    width: value,
+                    sizes: this.className
+                }
+            }))
+        });
     }
     private _removeOldSizes(values: number[]){
         for(const level of values){
@@ -78,4 +78,13 @@ export class ResizeNotifier extends HTMLElement{
     }
     
 
+}
+
+customElements.define('resize-observable', ResizeObservable)
+
+
+declare global {
+    interface HTMLElementTagNameMap {
+      'resize-observable': ResizeObservable;
+    }
 }

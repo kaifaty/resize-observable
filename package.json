@@ -1,6 +1,6 @@
 {
   "name": "resize-reservable",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Resize observable web-component",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -22,10 +22,10 @@
     "/dist/"
   ],
   "keywords": [
-    "dialog",
-    "modal",
-    "lit-element",
-    "LitElement"
+    "resize-observer",
+    "resize-observable",
+    "resize-notifier",
+    "web-component"
   ],
   "homepage": "https://github.com/kaifaty/resize-reservable#readme",
   "bugs": {

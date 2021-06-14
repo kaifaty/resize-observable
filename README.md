@@ -1,5 +1,8 @@
 # Resize observable
 
+Zero dependence resize observable web component.
+Based on ResizeOberver.
+
 Lit example: `<resize-observalbe .levels = "${[600, 1200]}" @resize = "${onResizeFunction}}></resize-observalbe>`
 
 ## Install
@@ -21,8 +24,8 @@ Lit example: `<resize-observalbe .levels = "${[600, 1200]}" @resize = "${onResiz
 ## `resize`
 
 Params:
+
 | Name        | Type               |  Description        |
 |-------------|--------------------|:---------------------|
 | `width`     | number             | Levels of container size |
 | `sizes`     | string             | classname of container. Has classes with levels such as before-768, aftrer-600 etc |
-
