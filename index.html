@@ -7,6 +7,18 @@
                 height: 100%;
                 padding: 0;
                 margin: 0;
+                color: #fff;
+            }
+            article pre{
+                width: 600px;
+            }
+            pre{
+                text-align: left;
+                width: 470px;
+                justify-self: center;
+            }
+            resize-observable, article{
+                display: grid;
             }
             .test-container{
                 width: 100%;
@@ -29,15 +41,60 @@
             .after-1200{
                 color: rgb(255, 0, 200);
             }
+            .after-1600{
+                color: rgb(0, 217, 255);
+            }
         </style>
     </head>
     <body>
         <div class = "test-container">
             <resize-observable>
-                <h1>Test-container 1</h1>                
+                <h1>Test-container.</h1>                
+                <h2>Resize window to see color changes</h2>
+                
+            
+    <pre>
+        /*Styles*/
+
+        .before-600{
+            color: blue;
+        }
+        .before-480{
+            color: rgb(0, 224, 0);
+        }
+        .after-600{
+            color: white;
+        }
+        .after-768{
+            color: tomato;
+        }
+        .after-1200{
+            color: rgb(255, 0, 200);
+        }
+        .after-1600{
+            color: rgb(0, 217, 255);
+        }
+    </pre>
             </resize-observable>
+
+            <article>
+                <h2>Check </h2>
+                <pre>
+                /*JS*/
+                
+                document.querySelector("resize-observable")
+                        .addEventListener('resize', e => {
+                            console.log(e.detail);
+                        });
+                </pre>
+            </article>
         </div>
     </body>
     <script type="module" src = "./dist/index.js"></script>
+    <script defer>
+        document.querySelector("resize-observable").addEventListener('resize', e => {
+            console.log(e.detail);
+        });
+    </script>
     
 </html>
