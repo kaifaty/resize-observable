@@ -1,6 +1,6 @@
 {
-  "name": "resize-reservable",
-  "version": "0.1.2",
+  "name": "resize-observable",
+  "version": "0.1.3",
   "description": "Resize observable web-component",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -27,9 +27,9 @@
     "resize-notifier",
     "web-component"
   ],
-  "homepage": "https://github.com/kaifaty/resize-reservable#readme",
+  "homepage": "https://github.com/kaifaty/resize-observable#readme",
   "bugs": {
-    "url": "https://github.com/kaifaty/resize-reservable/issues"
+    "url": "https://github.com/kaifaty/resize-observable/issues"
   },
   "author": "kaifaty",
   "license": "MIT",
