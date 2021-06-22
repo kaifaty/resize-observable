@@ -1,3 +1,8 @@
+import { ResizeObserver as Polyfill } from '@juggle/resize-observer';
+
+const ResizeObserver = window.ResizeObserver || Polyfill;
+
+
 export class ResizeObservable extends HTMLElement{
     _resizeObserver: ResizeObserver | null = null;
     _width: number = 0;
