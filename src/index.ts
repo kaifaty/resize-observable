@@ -6,6 +6,7 @@ const ResizeObserver = window.ResizeObserver || Polyfill;
 export class ResizeObservable extends HTMLElement{
     _resizeObserver: ResizeObserver | null = null;
     _width: number = 0;
+    _height: number = 0;
     _levels: number[] = [480, 600, 768, 1024, 1200, 1600, 1900];
     get levels(){
         return this._levels;
@@ -23,15 +24,15 @@ export class ResizeObservable extends HTMLElement{
         template.innerHTML = `
         <style>
             :host{
-                display: flex;
-                flex-direction: column;
-                flex: 1 1 auto;
+                display: block;
+                height: 100%;
             }
         </style><slot></slot>`
         this.attachShadow({mode: 'open'}).appendChild(template.content.cloneNode(true));
     }
     connectedCallback(){
         this._initResizeObserver();
+        this.setSize({width: this.clientWidth, height: this.clientHeight});
     }
     disconnectedCallback(){
         this._resizeObserver?.unobserve(this);
@@ -40,7 +41,7 @@ export class ResizeObservable extends HTMLElement{
     private _onChangeSize(entries: ResizeObserverEntry[]){
         for(const entry of entries){
             if(entry.target === this){                
-                this._setWidth(entry.contentRect.width);
+                this._setSize(entry.contentRect);
             }
         }
     }
@@ -50,17 +51,22 @@ export class ResizeObservable extends HTMLElement{
         }        
         this._resizeObserver.observe(this);
     }
-    private _setWidth(value: number){   
-        if(value === this._width) return;
+    setSize(data: {width: number, height: number}){
+        this._width = data.width;
+        this._height = data.height;
+        this._updateGridSize();
+        this.dispatchEvent(new CustomEvent("resize", {
+            detail: {
+                width: this._width,
+                height: this._height,
+                sizes: this.className
+            }
+        }))
+    }
+    private _setSize(data: {width: number, height: number}){   
+        if(data.width === this._width && data.height === this._height) return;
         requestAnimationFrame(() => {
-            this._width = value;
-            this._updateGridSize();
-            this.dispatchEvent(new CustomEvent("resize", {
-                detail: {
-                    width: value,
-                    sizes: this.className
-                }
-            }))
+            this.setSize(data);
         });
     }
     private _removeOldSizes(values: number[]){

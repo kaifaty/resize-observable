@@ -5,14 +5,14 @@ export class ResizeObservable extends HTMLElement {
         super();
         this._resizeObserver = null;
         this._width = 0;
+        this._height = 0;
         this._levels = [480, 600, 768, 1024, 1200, 1600, 1900];
         const template = document.createElement('template');
         template.innerHTML = `
         <style>
             :host{
-                display: flex;
-                flex-direction: column;
-                flex: 1 1 auto;
+                display: block;
+                height: 100%;
             }
         </style><slot></slot>`;
         this.attachShadow({ mode: 'open' }).appendChild(template.content.cloneNode(true));
@@ -29,6 +29,7 @@ export class ResizeObservable extends HTMLElement {
     }
     connectedCallback() {
         this._initResizeObserver();
+        this.setSize({ width: this.clientWidth, height: this.clientHeight });
     }
     disconnectedCallback() {
         var _a;
@@ -37,7 +38,7 @@ export class ResizeObservable extends HTMLElement {
     _onChangeSize(entries) {
         for (const entry of entries) {
             if (entry.target === this) {
-                this._setWidth(entry.contentRect.width);
+                this._setSize(entry.contentRect);
             }
         }
     }
@@ -47,18 +48,23 @@ export class ResizeObservable extends HTMLElement {
         }
         this._resizeObserver.observe(this);
     }
-    _setWidth(value) {
-        if (value === this._width)
+    setSize(data) {
+        this._width = data.width;
+        this._height = data.height;
+        this._updateGridSize();
+        this.dispatchEvent(new CustomEvent("resize", {
+            detail: {
+                width: this._width,
+                height: this._height,
+                sizes: this.className
+            }
+        }));
+    }
+    _setSize(data) {
+        if (data.width === this._width && data.height === this._height)
             return;
         requestAnimationFrame(() => {
-            this._width = value;
-            this._updateGridSize();
-            this.dispatchEvent(new CustomEvent("resize", {
-                detail: {
-                    width: value,
-                    sizes: this.className
-                }
-            }));
+            this.setSize(data);
         });
     }
     _removeOldSizes(values) {
